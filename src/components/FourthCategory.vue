@@ -10,7 +10,7 @@ const FourthEchartPie = ref<echarts.ECharts>();
 const initThreeEcahrt = function () {
   FourthEchartPie.value = echarts.init(FourthEchart.value as HTMLElement);
   FourthEchartPie.value.setOption({
-    color:['rgba(85, 193, 255, 1)'],
+    color: ['rgba(85, 193, 255, 1)'],
     grid: {
       left: '3%',
       right: '4%',
@@ -19,10 +19,16 @@ const initThreeEcahrt = function () {
     },
     xAxis: {
       type: 'category',
-      data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+      data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+      axisTick: {
+        inside: true
+      }
     },
     yAxis: {
-      type: 'value'
+      type: 'value',
+      axisTick: {
+        inside: true
+      }
     },
     series: [
       {

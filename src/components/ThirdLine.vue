@@ -32,14 +32,38 @@ const initThreeEcahrt = function () {
                 boundaryGap: false,
                 data: ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月'],
                 axisTick: {
-                    inside: true
+                    inside: true,
+                    alignWithLabel: true
+                },
+                 axisLine: {
+                    show: true,
+                    lineStyle: {
+                        color: '#55C1FF',
+                        // width:2
+                    }
                 }
             }
         ],
         yAxis: [
             {
-                type: 'value'
-            }
+                type: 'value',
+                splitLine: {
+                    show: true,
+                    lineStyle: {
+                        color: '#55C1FF',
+                        // type: "dashed",
+                        type: [5, 10],
+                        dashOffset: 5
+                    }
+                },
+                axisLine: {
+                    show: true,
+                    lineStyle: {
+                        color: '#55C1FF',
+                        //   width:2
+                    }
+                }
+            },
         ],
         series: {
             type: 'line',
