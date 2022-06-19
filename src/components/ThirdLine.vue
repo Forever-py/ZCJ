@@ -20,16 +20,20 @@ const initThreeEcahrt = function () {
             }
         },
         grid: {
-            left: '3%',
-            right: '4%',
+            left: '4%',
+            right: '3%',
             bottom: '3%',
+            top: '3%',
             containLabel: true
         },
         xAxis: [
             {
                 type: 'category',
                 boundaryGap: false,
-                data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+                data: ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月'],
+                axisTick: {
+                    inside: true
+                }
             }
         ],
         yAxis: [

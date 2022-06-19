@@ -1,59 +1,56 @@
 <template>
-    <HeaderContainer :title="pageHeader">
-        <template #content>
-            <div class="content" ref="tableWapperRef">
-                <border-vue class="border-container" v-for="(item, index) in title" :key="index" :title="item">
-                    <template #operation>
-                        <template v-if="index == 0">
-                            <div class="operation">
-                                <span class="s-title"><i class="icon"></i>设备停站问题</span>
-                                <a-input-search v-model:value="eSValue" placeholder="关键字搜索" enter-button="搜索"
-                                    style="width:250px" @search="onESSearch" />
-                                <span class="btn">停站问题录入</span>
-                                <span class="btn">停站问题导出</span>
-                            </div>
+    <div class="content" ref="tableWapperRef">
+        <border-vue class="border-container" v-for="(item, index) in title" :key="index" :title="item">
+            <template #operation>
+                <template v-if="index == 0">
+                    <div class="operation">
+                        <span class="s-title"><i class="icon"></i>设备停站问题</span>
+                        <a-input-search v-model:value="eSValue" placeholder="关键字搜索" enter-button="搜索"
+                            style="width:250px" @search="onESSearch" />
+                        <span class="btn">停站问题录入</span>
+                        <span class="btn">停站问题导出</span>
+                    </div>
+                </template>
+                <template v-if="index == 1">
+                    <div class="operation">
+                        <span class="s-title"><i class="icon"></i>问题闭环管理</span>
+                        <a-input-search v-model:value="eSValue" placeholder="关键字搜索" enter-button="搜索"
+                            style="width:250px" @search="onESSearch" />
+                        <span class="btn">进度更新</span>
+                        <span class="btn">未闭环问题导出</span>
+                    </div>
+                </template>
+                <template v-if="index == 2">
+                    <div class="Mobility">
+                        <span class="btn active">月可动率</span>
+                        <span class="btn">日可动率</span>
+                    </div>
+                </template>
+                <template v-if="index == 3">
+                    <a-form class="operation-form" layout="inline" :model="formState" @finish="handleFinish">
+                        <a-form-item v-for="(formItem, i) in formList" :key="i">
+                            <a-input v-model:value="formState[formItem]" style="width:140px"
+                                :placeholder="formState[`${formItem}Placeholder`]">
+                            </a-input>
+                        </a-form-item>
+                        <a-form-item>
+                            <span class="btn" html-type="submit">搜索</span>
+                        </a-form-item>
+                    </a-form>
+                </template>
+            </template>
+            <template #content>
+                <template v-if="index == 0">
+                    <a-table :columns="columns" :data-source="data" :rowKey="(record: DataType) => record.key"
+                        :pagination="false" :scroll="{ x: false, y: getHeight }">
+                        <template #bodyCell="{ column, text }">
+                            <template v-if="column.dataIndex === 'name'">
+                                <a>{{ text }}</a>
+                            </template>
                         </template>
-                        <template v-if="index == 1">
-                            <div class="operation">
-                                <span class="s-title"><i class="icon"></i>问题闭环管理</span>
-                                <a-input-search v-model:value="eSValue" placeholder="关键字搜索" enter-button="搜索"
-                                    style="width:250px" @search="onESSearch" />
-                                <span class="btn">进度更新</span>
-                                <span class="btn">未闭环问题导出</span>
-                            </div>
-                        </template>
-                        <template v-if="index == 2">
-                            <div class="Mobility">
-                                <span class="btn active">月可动率</span>
-                                <span class="btn">日可动率</span>
-                            </div>
-                        </template>
-                        <template v-if="index == 3">
-                            <a-form class="operation-form" layout="inline" :model="formState" @finish="handleFinish"
-                                @finishFailed="handleFinishFailed">
-                                <a-form-item v-for="(formItem, i) in formList" :key="i">
-                                    <a-input v-model:value="formState[formItem]" style="width:140px"
-                                        :placeholder="formState[`${formItem}Placeholder`]">
-                                    </a-input>
-                                </a-form-item>
-                                <a-form-item>
-                                    <span class="btn" html-type="submit">搜索</span>
-                                </a-form-item>
-                            </a-form>
-                        </template>
-                    </template>
-                    <template #content>
-                        <template v-if="index == 0">
-                            <a-table :columns="columns" :data-source="data" :rowKey="(record: DataType) => record.key"
-                                :pagination="false" :scroll="{ x: false, y: getHeight }">
-                                <template #bodyCell="{ column, text }">
-                                    <template v-if="column.dataIndex === 'name'">
-                                        <a>{{ text }}</a>
-                                    </template>
-                                </template>
-                            </a-table>
-                        </template>
-                        <!-- <template v-if="index == 1">
+                    </a-table>
+                </template>
+                <!-- <template v-if="index == 1">
                         <div class="second-part">
                             <div class="content-inner">
                                 <SecondPie />
@@ -76,17 +73,14 @@
                             <third-line />
                         </div>
                     </template> -->
-                        <template v-if="index == 1">
-                            <div class="third-part">
-                                <fourth-category />
-                            </div>
-                        </template>
-                    </template>
-                </border-vue>
-            </div>
-        </template>
-    </HeaderContainer>
-
+                <template v-if="index == 1">
+                    <div class="third-part">
+                        <fourth-category />
+                    </div>
+                </template>
+            </template>
+        </border-vue>
+    </div>
 </template>
 
 <script lang="ts" setup>
@@ -97,8 +91,7 @@ import BorderVue from './Border.vue';
 import SecondPie from './SecondPie.vue';
 import ThirdLine from './ThirdLine.vue';
 import FourthCategory from './FourthCategory.vue';
-import HeaderContainer from './HeaderContainer.vue';
-const pageHeader = '总装车间设备停台管理';
+
 const title = ref<string[]>(['设备停台问题展示', '设备停台问题分析'])
 // const title = ref<string[]>(['设备停台问题展示', '问题闭环跟踪管理', '设备可动率', '设备停台问题分析'])
 // 设备停站搜索
@@ -175,6 +168,7 @@ const data = ref<DataType[]>([
         HandledBy: '陈项目'
     }
 ]);
+
 // 设备停站表格部分
 const columns2 = [
     {
@@ -290,9 +284,7 @@ const formState: UnwrapRef<FormState> = reactive({
 const handleFinish: FormProps['onFinish'] = values => {
     console.log(values, formState);
 };
-const handleFinishFailed: FormProps['onFinishFailed'] = errors => {
-    console.log(errors);
-};
+
 
 onMounted(() => {
 })

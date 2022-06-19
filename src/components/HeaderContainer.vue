@@ -2,7 +2,7 @@
     <div class="container">
         <div class="header">{{props.title}} </div>
         <div class="content" >
-            <slot name="content" ></slot>
+            <slot name="content"></slot>
         </div>
     </div>
 </template>
@@ -23,7 +23,7 @@ $color1: #55C1FF;
     overflow: hidden;
 
     .header {
-        margin-top: 8px;
+        margin-top: 5px;
         line-height: 54px;
         letter-spacing: 2px;
         @include my-style-font(36px, #00FFFF, bold, SourceHanSansCN-Bold);
