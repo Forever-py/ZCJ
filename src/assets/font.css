@@ -1,0 +1,14 @@
+@font-face {
+    font-family: 'SourceHansSansCN-Bold';
+    src: url('SourceHanSansCN-Bold.otf');
+}
+
+@font-face {
+    font-family: 'SourceHansSansCN-Regular';
+    src: url('SourceHanSansCN-Regular.otf');
+}
+
+@font-face {
+    font-family: 'SourceHansSansCN-Medium';
+    src: url('SourceHanSansCN-Medium.otf');
+}

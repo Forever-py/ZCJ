@@ -1,0 +1,24 @@
+@mixin round-point($width) {
+  width: $width;
+  height: $width;
+  border-radius: 50%;
+  margin-right: 5px;
+}
+
+@mixin my-background-image($url) {
+  background-image: url($url);
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+}
+
+@mixin my-style-font(
+  $fontSize: 22px,
+  $color,
+  $fontWeight: 400,
+  $fontFamily: SourceHanSansCN-Medium
+) {
+  font-size: $fontSize;
+  font-family: $fontFamily;
+  font-weight: $fontWeight;
+  color: $color;
+}
