@@ -4,63 +4,56 @@
             <template #operation>
                 <div class="operation">
                     <span class="s-title"><i class="icon"></i>设备停站问题</span>
-                    <a-form class="operation-form" layout="inline" :model="formState" @finish="handleFinish">
-                        <a-form-item>
-                            <a-input v-model:value="formState.searchValue" style="width:140px" placeholder="请输入关键字">
-                            </a-input>
-                        </a-form-item>
-                        <a-form-item>
-                            <span class="btn" html-type="submit">搜索</span>
-                        </a-form-item>
-                    </a-form>
+                    <a-input v-model:value="searchValue" style="width:140px" placeholder="请输入关键字">
+                    </a-input>
+                    <span class="btn" @click="handleFinish">搜索</span>
                     <span class="btn">停站问题录入</span>
                     <span class="btn">停站问题导出</span>
                 </div>
             </template>
             <template #content>
-                    <a-table :columns="columns" :data-source="data" :rowKey="(record: DataType) => record.key"
-                        :pagination="false" :scroll="{ x: false, y: getHeight }">
-                        <template #bodyCell="{ column, text }">
-                            <template v-if="column.dataIndex === 'name'">
-                                <a>{{ text }}</a>
-                            </template>
-                        </template>
-                    </a-table>
-                </template>
+                <a-table :columns="columns" :data-source="data" :rowKey="(record: DataType) => record.key"
+                    :pagination="false" :scroll="{ x: false, y: `${getHeight}px` }">
+                </a-table>
+            </template>
         </border-vue>
         <border-vue class="content-part" :title="title">
             <template #operation>
                 <div class="operation bottom">
                     <span class="s-title"><i class="icon"></i>设备多技能率</span>
-                    <a-form class="operation-form" layout="inline" :model="formState" @finish="handleFinish">
-                        <a-form-item>
-                            <a-input v-model:value="formState.searchValue" style="width:200px" placeholder="请输入关键字">
-                            </a-input>
-                        </a-form-item>
-                        <a-form-item>
-                            <span class="btn" html-type="submit">搜索</span>
-                        </a-form-item>
-                    </a-form>
+                    <a-input v-model:value="searchValue" style="width:200px" placeholder="请输入关键字">
+                    </a-input>
+                    <span class="btn" @click="handleFinish">搜索</span>
                     <span class="btn">多技能导出</span>
                 </div>
+            </template>
+            <template #content>
+                <div class="top">
+                    <div class="left">
+                        <span>设备—人员多技能信息展示</span>
+                        <span>xx设备急需进行人员培训！</span>
+                        <span>xx设备需要进行人员培训</span>
+                    </div>
+                    <ManMachinePie class="right" />
+                </div>
+                <a-table :columns="columnsL" class="left-table" :data-source="dataL"
+                    :rowKey="(record: DataType) => record.key" :pagination="false"
+                    :scroll="{ x: false, y: `${getHeight * 0.7}px` }">
+                </a-table>
             </template>
         </border-vue>
     </div>
 </template>
 
 <script lang="ts" setup>
-import { ref,computed } from "vue";
-import type { FormProps } from 'ant-design-vue';
+import { ref, computed } from "vue";
 import BorderVue from "./Border.vue";
+import ManMachinePie from "./ManMachinePie.vue";
 
 const title = ref<string>('人机匹配度管理');
-const formState = ref<{
-    searchValue: string;
-}>({
-    searchValue: ''
-})
-const handleFinish: FormProps['onFinish'] = values => {
-    console.log(values, formState);
+const searchValue = ref<string>('')
+const handleFinish = () => {
+    console.log(searchValue);
 };
 
 const columns = [
@@ -421,11 +414,85 @@ const data = ref<DataType[]>([
         score: '80'
     }
 ]);
+
+const columnsL = [
+    {
+        title: '序号',
+        dataIndex: 'SerialNumber',
+        key: 'SerialNumber',
+        width: 80,
+        align: 'center'
+    },
+    {
+        title: '设备名称',
+        dataIndex: 'EquimentName',
+        key: 'EquimentName',
+        // width: 160
+        ellipsis: true
+    },
+    {
+        title: '精通人数',
+        dataIndex: 'ProficientNum',
+        key: 'ProficientNum',
+        ellipsis: true
+        // width: 95
+    },
+    {
+        title: '掌握人数',
+        dataIndex: 'MasterNum',
+        key: 'MasterNum',
+        ellipsis: true
+        // width: 90
+    },
+    {
+        title: '熟悉人数',
+        dataIndex: 'AcquaintancesNum',
+        key: 'AcquaintancesNum',
+        ellipsis: true
+        // width: 90
+    },
+
+    {
+        title: '了解人数',
+        dataIndex: 'KnowNum',
+        key: 'KnowNum',
+        ellipsis: true
+        // width: 90
+    },
+    {
+        title: '综评',
+        dataIndex: 'ComEvaluation',
+        key: 'ComEvaluation',
+        width: 80
+    }
+];
+interface DataL {
+    key: number;
+    SerialNumber: string;
+    EquimentName: string;
+    ProficientNum: number;
+    MasterNum: number;
+    AcquaintancesNum: number;
+    KnowNum: number;
+    ComEvaluation: string;
+}
+const dataL = ref<DataL[]>([{
+    key: 1,
+    SerialNumber: '1',
+    EquimentName: '姓名',
+    ProficientNum: 111,
+    MasterNum: 10,
+    AcquaintancesNum: 10,
+    KnowNum: 10,
+    ComEvaluation: '优秀'
+}])
+
+
 // 表格 表体部分可视区域大小
 const tableWapperRef = ref<HTMLElement>();
 const getHeight = computed(() => {
     const height = ref<number>(Math.ceil(tableWapperRef.value?.clientHeight as number) - 40 - 80 - 90);
-    return `${height.value}px`;
+    return height.value;
 })
 </script>
 
@@ -461,10 +528,6 @@ $color1: #55C1FF;
 
             }
 
-            // .operation-form {
-            // justify-content: space-around;
-            // }
-
             :deep(.ant-form-inline .ant-form-item) {
                 margin-right: 0;
 
@@ -490,6 +553,40 @@ $color1: #55C1FF;
             }
         }
 
+        .top {
+            width: 100%;
+            height: 30%;
+            display: flex;
+
+            .left {
+                width: 40%;
+                height: 100%;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+
+                span {
+                    text-align: left;
+                    display: inline-block;
+                    padding-left: 50px;
+                    margin: 5px 0;
+                    @include my-style-font(14px, #FFA254, 400, SourceHanSansCN-Regular);
+
+                    &:first-of-type {
+                        color: #fff;
+                    }
+
+                    &:last-of-type {
+                        color: #00BD7E;
+                    }
+                }
+            }
+
+            .right {
+                width: 60%;
+            }
+
+        }
     }
 }
 
@@ -499,16 +596,20 @@ $color1: #55C1FF;
     color: #fff;
 }
 
+.left-table {
+    :deep(.ant-table .ant-table-tbody > tr > td:last-child) {
+        color: #00BD7E;
+    }
+}
+
 :deep(.ant-table) {
     background-color: transparent;
 
     .ant-table-header {
         background: transparent;
 
-        //  background: rgba(57, 123, 255, 0.2);
         .ant-table-thead>tr>th {
             border-color: rgba(57, 123, 255, 0.2);
-            // background: transparent;
             background: rgba(57, 123, 255, 0.2);
         }
     }
@@ -533,4 +634,8 @@ $color1: #55C1FF;
 :deep(.ant-table-fixed-header .ant-table-scroll .ant-table-header::-webkit-scrollbar) {
     background-color: transparent;
 }
+
+// :deep(.ant-table .ant-table-tbody > tr > td:last-of-type) {
+//     color: #00BD7E;
+// }
 </style>

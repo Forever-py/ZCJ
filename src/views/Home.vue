@@ -1,10 +1,13 @@
 <template>
     <HeaderContainer :title="titleList[choiceNav]">
         <template #content>
-            <div class="back" v-if="choiceNav !== 'statusName'" @click="choiceNav = 'statusName'">返回</div>
+            <div class="back" v-if="choiceNav !== 'statusName'" @click="changeNav">{{ choiceNav != 'humanNameS' ? '返回' :
+                    '人员能力信息管理'
+            }}</div>
             <HomeContent v-if="choiceNav == 'statusName'" @onCancel="_onCancel" />
             <EquipmentStop v-if="choiceNav == 'equipmentStopName'" />
             <ManMachine v-if="choiceNav == 'humanNameS'" />
+            <PersonInfoManagement v-if="choiceNav == 'humanNameF'" />
         </template>
     </HeaderContainer>
 </template>
@@ -14,6 +17,7 @@ import HeaderContainer from "../components/HeaderContainer.vue";
 import EquipmentStop from "../components/EquipmentStop.vue";
 import HomeContent from "../components/HomeContent.vue";
 import ManMachine from "../components/ManMachine.vue";
+import PersonInfoManagement from "../components/PersonInfoManagement.vue"
 
 type TitleList = {
     statusName: string;
@@ -22,8 +26,7 @@ type TitleList = {
     humanNameS: string;
 }
 
-// const choiceNav = ref<string>("statusName");
-const choiceNav = ref<string>("humanNameS");
+const choiceNav = ref<string>("statusName");
 const titleList = ref<TitleList>({
     statusName: "总装车间设备状态总览",
     equipmentStopName: "总装车间设备停台管理",
@@ -32,8 +35,18 @@ const titleList = ref<TitleList>({
 });
 
 const _onCancel = function (key: string) {
-    if(key == 'aaa') return;
+    if (key == 'aaa') return;
     choiceNav.value = key;
+}
+
+// 改变页面显示
+const changeNav = function () {
+    if (choiceNav.value != 'humanNameS') {
+        // 显示返回首页
+        choiceNav.value = 'statusName';
+    } else {
+        choiceNav.value = 'humanNameF';
+    }
 }
 </script>
 

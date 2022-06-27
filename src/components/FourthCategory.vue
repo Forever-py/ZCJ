@@ -19,23 +19,61 @@ const initThreeEcahrt = function () {
     },
     xAxis: {
       type: 'category',
-      data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+      data: ['底盘', '滑板线', '重载吊具', '淋雨线', '加注', 'CP7板式带', '风挡', '拧紧', '车门输送', '车身库'],
       axisTick: {
-        inside: true
+        inside: true,
+        alignWithLabel: true
+      },
+      axisLabel: { interval: 0 },
+      axisLine: {
+        show: true,
+        lineStyle: {
+          color: '#55C1FF',
+          width: 1
+        }
       }
     },
     yAxis: {
       type: 'value',
+      min: 0,
+      max: 100,
+      axisLabel: {
+        formatter: '{value}%',
+      },
       axisTick: {
-        inside: true
+        inside: true,
+      },
+      splitLine: {
+        show: true,
+        lineStyle: {
+          color: '#55C1FF',
+          type: [5, 10],
+          dashOffset: 5,
+          width: 0.5
+        }
+      },
+      axisLine: {
+        show: true,
+        lineStyle: {
+          color: '#55C1FF',
+        },
       }
     },
-    series: [
-      {
-        data: [120, 200, 150, 80, 70, 110, 130],
-        type: 'bar'
-      }
-    ]
+    series: {
+      data: [20, 20, 50, 80, 70, 10, 30, 10, 30, 15],
+      type: 'bar',
+      barWidth: '30%',
+      label: {
+        show: true,
+        position: 'top',
+        formatter: '{per|{c}%}',
+        rich: {
+          per: {
+            color: '#fff'
+          }
+        }
+      },
+    }
   })
 }
 

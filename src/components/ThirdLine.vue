@@ -10,6 +10,7 @@ const ThirdEchartPie = ref<echarts.ECharts>();
 const initThreeEcahrt = function () {
     ThirdEchartPie.value = echarts.init(ThirdEchart.value as HTMLElement);
     ThirdEchartPie.value.setOption({
+        color: '#1FFFF7',
         tooltip: {
             trigger: 'axis',
             axisPointer: {
@@ -23,48 +24,56 @@ const initThreeEcahrt = function () {
             left: '4%',
             right: '3%',
             bottom: '3%',
-            top: '3%',
+            top: '4%',
             containLabel: true
         },
-        xAxis: [
-            {
-                type: 'category',
-                boundaryGap: false,
-                data: ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月'],
-                axisTick: {
-                    inside: true,
-                    alignWithLabel: true
-                },
-                 axisLine: {
-                    show: true,
-                    lineStyle: {
-                        color: '#55C1FF',
-                        // width:2
-                    }
+        label: {
+            formatter: '{per|{c}%}',
+            rich: {
+                per: {
+                    color: '#fff'
                 }
             }
-        ],
-        yAxis: [
-            {
-                type: 'value',
-                splitLine: {
-                    show: true,
-                    lineStyle: {
-                        color: '#55C1FF',
-                        // type: "dashed",
-                        type: [5, 10],
-                        dashOffset: 5
-                    }
-                },
-                axisLine: {
-                    show: true,
-                    lineStyle: {
-                        color: '#55C1FF',
-                        //   width:2
-                    }
+        },
+        xAxis: {
+            type: 'category',
+            boundaryGap: false,
+            data: ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月'],
+            axisTick: {
+                inside: true,
+                alignWithLabel: true
+            },
+            axisLine: {
+                show: true,
+                lineStyle: {
+                    color: '#55C1FF',
+                    width: 1
+                }
+            }
+        },
+        yAxis: {
+            type: 'value',
+            min: 0,
+            max: 100,
+            axisLabel: {
+                formatter: '{value}%',
+            },
+            splitLine: {
+                show: true,
+                lineStyle: {
+                    color: '#55C1FF',
+                    type: [5, 10],
+                    dashOffset: 5,
+                    width: 0.5
                 }
             },
-        ],
+            axisLine: {
+                show: true,
+                lineStyle: {
+                    color: '#55C1FF',
+                }
+            }
+        },
         series: {
             type: 'line',
             smooth: true,
@@ -92,7 +101,7 @@ const initThreeEcahrt = function () {
             emphasis: {
                 focus: 'series'
             },
-            data: [820, 932, 901, 934, 1290, 1330, 1320]
+            data: [20, 32, 10, 34, 90, 30, 20, 20, 32, 10, 34, 90]
         }
     })
 }

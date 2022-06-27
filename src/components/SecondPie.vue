@@ -34,6 +34,11 @@ const initSecondEcahrt = function () {
         series: {
             type: 'pie',
             radius: ['30%', '45%'],
+            label: {
+                normal: {
+                    show:false
+                }
+            },
             data: [
                 { value: 335, name: '措施待执行' },
                 { value: 310, name: '报告待上传' },

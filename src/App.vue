@@ -26,8 +26,8 @@ body {
 
 * {
   &::-webkit-scrollbar {
-    width: 0px;
-    height: 0px;
+    // width: 0px;
+    // height: 0px;
     background-color: transparent;
   }
 
@@ -36,6 +36,10 @@ body {
   }
 
   &::-webkit-scrollbar-thumb {
+    background-color: transparent;
+  }
+
+  &::-webkit-scrollbar-corner {
     background-color: transparent;
   }
 }

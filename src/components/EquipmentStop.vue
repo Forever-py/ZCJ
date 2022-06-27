@@ -5,8 +5,9 @@
                 <template v-if="index == 0">
                     <div class="operation">
                         <span class="s-title"><i class="icon"></i>设备停站问题</span>
-                        <a-input-search v-model:value="eSValue" placeholder="关键字搜索" enter-button="搜索"
-                            style="width:250px" @search="onESSearch" />
+                        <a-input v-model:value="eSValue" style="width:140px" placeholder="请输入关键字">
+                        </a-input>
+                        <span class="btn" @click="onESSearch">搜索</span>
                         <span class="btn">停站问题录入</span>
                         <span class="btn">停站问题导出</span>
                     </div>
@@ -14,8 +15,9 @@
                 <template v-if="index == 1">
                     <div class="operation">
                         <span class="s-title"><i class="icon"></i>问题闭环管理</span>
-                        <a-input-search v-model:value="eSValue" placeholder="关键字搜索" enter-button="搜索"
-                            style="width:250px" @search="onESSearch" />
+                        <a-input v-model:value="eSValue" style="width:140px" placeholder="请输入关键字">
+                        </a-input>
+                        <span class="btn" @click="onESSearch">搜索</span>
                         <span class="btn">进度更新</span>
                         <span class="btn">未闭环问题导出</span>
                     </div>
@@ -43,11 +45,11 @@
                 <template v-if="index == 0">
                     <a-table :columns="columns" :data-source="data" :rowKey="(record: DataType) => record.key"
                         :pagination="false" :scroll="{ x: false, y: getHeight }">
-                        <template #bodyCell="{ column, text }">
+                        <!-- <template #bodyCell="{ column, text }">
                             <template v-if="column.dataIndex === 'name'">
                                 <a>{{ text }}</a>
                             </template>
-                        </template>
+                        </template> -->
                     </a-table>
                 </template>
                 <!-- <template v-if="index == 1">

@@ -6,7 +6,7 @@
 import { ref, onMounted } from 'vue'
 import * as echarts from 'echarts';
 
-const props= defineProps(['data']);
+const props = defineProps(['data']);
 const statusEchart = ref<HTMLElement>();
 const statusEchartPie = ref<echarts.ECharts>();
 const initstatusEcahrt = function () {
@@ -15,13 +15,23 @@ const initstatusEcahrt = function () {
         color: ['#FFA254', '#1754F5'],
         tooltip: {
             trigger: 'item',
-            formatter: '{b}: {c} ({d}%)'
+            // formatter: '{b}: {c} ({d}%)'
+            formatter: '{b}：{d}%'
         },
         legend: {
-            data: [ '已闭环','未闭环'],
+            data: ['已闭环', '未闭环'],
             bottom: "0%",
             textStyle: {
                 color: "#00D9D5"
+            }
+        },
+        label: {
+            formatter: '{per|{d}%}',
+            rich: {
+                per: {
+                    color: '#fff',
+                    padding: [0, -30 ,10,-30]
+                }
             }
         },
         series: {
